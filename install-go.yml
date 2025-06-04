@@ -7,13 +7,14 @@
         dest: C:\Users\{{ ansible_user}}\Downloads\go.msi
 
     - name: Install Go using MSI
-      win_package:
+      ansible.windows.win_package:
         path: C:\Users\{{ ansible_user }}\Downloads\go.msi
         state: present
-        name: GOPATH
-        value: C:\Users\{{ ansible_user  }}\go
+        product_id: ""
 
     - name: Add Go to System PATH
-      win_path: 
-        elements: 
-          - C:\Program Files\Go\bin
+      ansible.windows.win_environment: 
+        name: Path
+        state: present
+        level: machine
+        value: C:\Program Files\Go\bin
